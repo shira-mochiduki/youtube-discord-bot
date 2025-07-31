@@ -1,1 +1,24 @@
-placeholder
+services:
+  - type: web
+    name: youtube-notifier-web
+    env: python
+    buildCommand: "pip install -r requirements.txt"
+    startCommand: "python flask_web.py"
+    plan: free
+    envVars:
+      - key: YOUTUBE_API_KEY
+        sync: false
+    autoDeploy: true
+    region: oregon
+
+  - type: worker
+    name: youtube-notifier-bot
+    env: python
+    buildCommand: "pip install -r requirements.txt"
+    startCommand: "python bot_worker.py"
+    plan: free
+    envVars:
+      - key: YOUTUBE_API_KEY
+        sync: false
+    autoDeploy: true
+    region: oregon
