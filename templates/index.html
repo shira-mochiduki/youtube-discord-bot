@@ -1,1 +1,76 @@
-placeholder
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>YouTube通知Bot 管理画面</title>
+    <style>
+        body {
+            font-family: sans-serif;
+            margin: 2rem;
+        }
+        h1 {
+            font-size: 1.5rem;
+        }
+        table {
+            border-collapse: collapse;
+            margin-top: 1rem;
+            width: 100%;
+        }
+        th, td {
+            border: 1px solid #ccc;
+            padding: 0.5rem;
+            text-align: left;
+        }
+        form {
+            margin-top: 1rem;
+        }
+        input[type="text"] {
+            width: 40%;
+            padding: 0.4rem;
+            margin-right: 0.5rem;
+        }
+        input[type="submit"] {
+            padding: 0.4rem 1rem;
+        }
+        .delete-button {
+            background-color: red;
+            color: white;
+            padding: 0.2rem 0.5rem;
+            border: none;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <h1>YouTube通知Bot 管理画面</h1>
+
+    <form method="POST" action="/add">
+        <input type="text" name="channel_id" placeholder="YouTubeチャンネルIDまたは@ユーザー名" required>
+        <input type="text" name="webhook_url" placeholder="Discord Webhook URL" required>
+        <input type="submit" value="追加">
+    </form>
+
+    <table>
+        <thead>
+            <tr>
+                <th>チャンネルID / ユーザー名</th>
+                <th>Discord Webhook</th>
+                <th>削除</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for entry in config %}
+            <tr>
+                <td>{{ entry.channel_id }}</td>
+                <td>{{ entry.webhook_url }}</td>
+                <td>
+                    <form method="POST" action="/delete/{{ loop.index0 }}">
+                        <button class="delete-button" type="submit">削除</button>
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>
