@@ -30,12 +30,20 @@ def add_entry():
     data = load_config()
     channel_id = request.form.get("channel_id", "").strip()
     webhook_url = request.form.get("webhook_url", "").strip()
+    
+    # ←ここからログ出力
+    print(f"[DEBUG] フォーム受信: {channel_id} / {webhook_url}")
+    
     if channel_id and webhook_url:
         data.append({
             "channel_id": channel_id,
             "webhook_url": webhook_url
         })
         save_config(data)
+        print("[DEBUG] config.json に保存しました")
+    else:
+        print("[WARN] 入力値が不正です")
+    
     return redirect("/")
 
 @app.route("/delete/<int:index>", methods=["POST"])
