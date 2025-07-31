@@ -13,8 +13,12 @@ def load_config():
         return json.load(f)
 
 def save_config(data):
-    with open(CONFIG_FILE, "w", encoding="utf-8") as f:
-        json.dump(data, f, ensure_ascii=False, indent=2)
+    try:
+        with open(CONFIG_FILE, "w", encoding="utf-8") as f:
+            json.dump(data, f, ensure_ascii=False, indent=2)
+        print("[INFO] config.json に保存しました")
+    except Exception as e:
+        print(f"[ERROR] config.json 保存に失敗: {e}")
 
 @app.route("/", methods=["GET"])
 def index():
