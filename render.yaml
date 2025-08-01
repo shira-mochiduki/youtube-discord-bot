@@ -15,7 +15,7 @@ services:
     name: youtube-notifier-bot
     env: python
     buildCommand: "pip install -r requirements.txt"
-    startCommand: "python bot_worker.py"
+    startCommand: 
     plan: free
     envVars:
       - key: YOUTUBE_API_KEY
