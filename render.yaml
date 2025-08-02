@@ -3,7 +3,7 @@ services:
     name: youtube-notifier-web
     env: python
     buildCommand: "pip install -r requirements.txt"
-    startCommand: "python flask_web.py"
+    startCommand: 
     plan: free
     envVars:
       - key: YOUTUBE_API_KEY
