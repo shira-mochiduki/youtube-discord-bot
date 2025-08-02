@@ -10,10 +10,16 @@ CHECK_INTERVAL = 300  # 5分
 
 def load_config():
     if not os.path.exists(CONFIG_FILE):
+        print("[DEBUG] config.json が見つかりません")
         return []
-    with open(CONFIG_FILE, "r") as f:
-        return json.load(f)
-
+    with open(CONFIG_FILE, "r", encoding="utf-8") as f:
+        try:
+            config = json.load(f)
+            print(f"[DEBUG] 読み込んだ設定: {config}")
+            return config
+        except json.JSONDecodeError as e:
+            print(f"[ERROR] JSON読み込みエラー: {e}")
+            return []
 def load_notified():
     if not os.path.exists(STATE_FILE):
         return set()
